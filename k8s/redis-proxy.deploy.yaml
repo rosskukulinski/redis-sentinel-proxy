@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-proxy
+  labels:
+    k8s-app: redis-proxy
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: redis-proxy
+    spec:
+      containers:
+      - name: redis-proxy
+        image: rosskukulinski/redis-proxy:1.0.0
+        imagePullPolicy: Always
+        args:
+          - "-listen"
+          - "0.0.0.0:6379"
+          - "-sentinel"
+          - "redis-sentinel:26379"
+          - "-master"
+          - "mymaster"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health/
+        #     port: 9000
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 1
+        # readinessProbe:
+        #   httpGet:
+        #     path: /_health/
+        #     port: 9000
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 1
+        ports:
+        - name: redis
+          containerPort: 6379
