@@ -21,18 +21,6 @@ spec:
           - "redis-sentinel:26379"
           - "-master"
           - "mymaster"
-        # livenessProbe:
-        #   httpGet:
-        #     path: /_health/
-        #     port: 9000
-        #   initialDelaySeconds: 5
-        #   timeoutSeconds: 1
-        # readinessProbe:
-        #   httpGet:
-        #     path: /_health/
-        #     port: 9000
-        #   initialDelaySeconds: 5
-        #   timeoutSeconds: 1
         ports:
         - name: redis
           containerPort: 6379
